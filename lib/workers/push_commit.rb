@@ -13,5 +13,12 @@ class PushCommitWorker
     Dir.chdir(repo_path)
 
     repo.git.push(git_opts, ["origin"])
+
+repo_path= "/sharing/workspace/apidocs"
+    
+    repo = Grit::Repo.new(repo_path) 
+    Dir.chdir(repo_path)
+
+    repo.git.pull({}, "origin", "master")
   end
 end

@@ -105,7 +105,11 @@ module Shwedagon
       repo.remove([full_path])
       data = repo.commit_index "Deleted #{post_file}"
       push_to_origin(repo)
-      
+
+repo2 = Grit::Repo.new(settings.repo_src)
+Dir.chdir(settings.repo_src)
+repo2.git.pull({}, "origin", "master")
+ 
       redirect @base_url
     end
 
@@ -153,6 +157,11 @@ module Shwedagon
 
     get '/settings/push' do
       data = repo.git.push
+
+repo2 = Grit::Repo.new(settings.repo_src)
+Dir.chdir(settings.repo_src)
+repo2.git.pull({}, "origin", "master")
+
       return data + " done"
     end
 
@@ -171,6 +180,10 @@ module Shwedagon
 
       data = repo.commit_index log_message
       push_to_origin(repo)
+
+repo2 = Grit::Repo.new(settings.repo_src)
+Dir.chdir(settings.repo_src)
+repo2.git.pull({}, "origin", "master")
 
       if params[:ajax]
         {:status => 'OK'}.to_json
