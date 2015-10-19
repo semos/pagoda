@@ -192,5 +192,36 @@ repo2.git.pull({}, "origin", "master")
       end
     end
 
+    get '/api/*' do
+      api_file = params[:splat].first
+      send_file File.join(jekyll_site.source, *%w[apis], api_file)
+    end
+
+    get '/apis' do
+      @apis = Dir.entries(File.join(jekyll_site.source, *%w[apis]))
+      @apis.select! {|i| i.match(/\.(json|yaml)/i)}
+      mustache :apis
+    end
+
+    post '/apis/upload' do
+      unless params[:file] &&
+        (tmpfile = params[:file][:tempfile]) &&
+        (name = params[:file][:filename])
+        raise 'No file uploaded'
+      else
+        file = File.join(jekyll_site.source, *%w[apis], name)
+
+#print name
+#print tmpfile
+#print file
+#print tmpfile.read
+
+        File.open(file, 'wb') { |f| f.write(tmpfile.read)}
+        repo.add file
+        repo.commit_index "adding API '#{name}'"
+        redirect @base_url + '/apis'
+      end
+    end
+
   end
 end

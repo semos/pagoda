@@ -1,0 +1,23 @@
+<body class="admin posts">
+  <div id="admin">
+    <ul style="list-style-type: none; padding-bottom: 60px;">
+      {{#apis}}
+        <li><img src="/api/{{.}}" style="max-height: 100px; margin-right: 40px;"> ../apis/{{.}}</li>
+      {{/apis}}
+    </ul>
+
+      <div id="publish-bar-hover">
+        <div id="publish-bar">
+          <div class="contain">
+            <div class="left">
+              <a href="{{base_url}}/">&laquo; Admin</a>
+            </div>
+<div class="right"><form accept-charset="UTF-8" action="{{base_url}}/apis/upload" enctype="multipart/form-data" method="post">
+      <input name="file" type="file" />
+      <input type="submit" value="Upload" />
+    </form></div>
+          </div>
+        </div>
+      </div>
+  </div>
+</body>
