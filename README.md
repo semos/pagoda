@@ -42,7 +42,7 @@ Two commands, one for installing, another for running.
   gem install pagoda-jekyll
   pagoda .
 ```
-
+TODO
 
 ![http://cl.ly/image/1B3Z1Q3I1g37/pagoda-install.png](http://cl.ly/image/1B3Z1Q3I1g37/pagoda-install.png)
 
