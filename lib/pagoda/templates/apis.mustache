@@ -2,7 +2,23 @@
   <div id="admin">
     <ul style="list-style-type: none; padding-bottom: 60px;">
       {{#apis}}
-        <li><img src="/api/{{.}}" style="max-height: 100px; margin-right: 40px;"> ../apis/{{.}}</li>
+	<script type="application/javascript">
+	$(function () {
+  
+	  $("#admin li").each(function(){ 
+	    var $this = $(this);
+	    $.getJSON($this.attr('json-src'),function(data, textStatus, jqXHR){
+	      $this.find('pre.content').text(jqXHR.responseText);
+	    });
+	  });
+	});	
+	</script>
+        <li json-src="/api/{{.}}" >
+	  <span> ../apis/{{.}}</span>
+	  <pre class="content">
+
+	  </pre>
+        </li>
       {{/apis}}
     </ul>
 

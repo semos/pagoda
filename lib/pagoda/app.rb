@@ -93,6 +93,9 @@ module Shwedagon
       @drafts    = posts_template_data(jekyll_site.read_drafts)
       @published = posts_template_data(jekyll_site.posts)
 
+      cnf = YAML::load_file(File.join(File.dirname(File.expand_path(__FILE__)),'../../tmp/repo/', '_config.yml'))  
+
+      @blog_url = cnf['url']
       mustache :home
     end
 
