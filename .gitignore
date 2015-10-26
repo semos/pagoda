@@ -2,3 +2,5 @@
 *gem
 coverage
 tmp/repo
+**/**/.nfs*
+lib/pagoda/templates/.nfs0000000000108b9e00013504

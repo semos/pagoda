@@ -1,18 +1,25 @@
 <body class="admin posts">
+<style>
+#admin pre.content {
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    max-height:100px;
+    overflow: hidden;
+    border: #D4D4D4 1px solid;
+    cursor: pointer;
+    box-shadow: 0px -36px 35px -39px #323232 inset;
+}
+#admin pre.max-height {
+   max-height: 800px;
+   overflow: auto;
+}
+</style>
   <div id="admin">
     <ul style="list-style-type: none; padding-bottom: 60px;">
       {{#apis}}
-	<script type="application/javascript">
-	$(function () {
-  
-	  $("#admin li").each(function(){ 
-	    var $this = $(this);
-	    $.getJSON($this.attr('json-src'),function(data, textStatus, jqXHR){
-	      $this.find('pre.content').text(jqXHR.responseText);
-	    });
-	  });
-	});	
-	</script>
         <li json-src="/api/{{.}}" >
 	  <span> ../apis/{{.}}</span>
 	  <pre class="content">
@@ -37,3 +44,24 @@
       </div>
   </div>
 </body>
+<script type="application/javascript">
+  $(function () {
+    $("#admin li").each(function(){
+      var $this = $(this);
+      $.getJSON($this.attr('json-src'),function(data, textStatus, jqXHR){
+        $this.find('pre.content')[0].innerHTML = JSON.stringify(data, null, 4);
+      });
+
+      var elem = $this.find('pre.content');
+
+      elem.on('mousedown', function (evt) {
+        elem.on('mouseup mousemove', function handler(evt) {
+          if (evt.type === 'mouseup') {
+             $(this).toggleClass('max-height');
+          }
+          elem.off('mouseup mousemove', handler);
+        });
+      });
+    });
+  });
+</script>
