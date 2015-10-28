@@ -226,5 +226,12 @@ repo2.git.pull({}, "origin", "master")
       end
     end
 
+    delete '/api/*' do
+      api_file = params[:splat].first
+      File.delete(File.join(jekyll_site.source, *%w[apis], api_file))
+      redirect @base_url + '/apis'
+    end
+
+
   end
 end

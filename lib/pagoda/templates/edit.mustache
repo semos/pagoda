@@ -1,5 +1,16 @@
-
 <body class="admin posts edit">
+<style>
+html, body, #admin, form.edit_post, #split, #post-editor, #post-content {
+  height: 100%
+}
+#text-content {
+  height: calc( 100% - 166px);
+}
+#text-title {
+    max-height: 107px;
+}
+</style>
+
   <div id="admin">
     <div id="save"></div>
     <form accept-charset="UTF-8" action="{{base_url}}/save-post" class="edit_post" method="post">

@@ -16,12 +16,19 @@
    max-height: 800px;
    overflow: auto;
 }
+.delete-ico {
+    color: red;
+    cursor: pointer;
+}
+.right {
+    float: right;
+}
 </style>
   <div id="admin">
     <ul style="list-style-type: none; padding-bottom: 60px;">
       {{#apis}}
         <li json-src="/api/{{.}}" >
-	  <span> ../apis/{{.}}</span>
+	  <p> ../apis/{{.}}<span class="delete-ico right" delete-url="{{base_url}}/api/{{.}}">X</span></p>
 	  <pre class="content">
 
 	  </pre>
@@ -46,6 +53,16 @@
 </body>
 <script type="application/javascript">
   $(function () {
+    $(".delete-ico").on('click', function(){
+      if (confirm("Etes-vous sûr de vouloir supprimer ce fichier ?"))
+        $.ajax({
+	  method: 'DELETE', 
+	  url: $(this).attr('delete-url'),
+  	  success: function(){location.reload()}
+        });
+
+    });
+
     $("#admin li").each(function(){
       var $this = $(this);
       $.getJSON($this.attr('json-src'),function(data, textStatus, jqXHR){
